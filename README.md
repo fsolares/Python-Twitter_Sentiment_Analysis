@@ -1,6 +1,6 @@
 # Twitter_Sentiment_Analysis
-This is a Twitter Sentiment Analysis developed by **Felipe Solares da Silva**, using Python, NLTK, TextBlob and Tweepy. 
-This project is part of his **professional portfolio**. If you want to see more projects like this one go and check https://github.com/fsolares/professional-portfolio.
+This is a Twitter Sentiment Analysis developed by **Felipe Solares da Silva**, using Python, NLTK, TextBlob and Tweepy.<br>
+This project is part of his **professional portfolio**. If you want to see more of my projects, go and check my portfolio at https://github.com/fsolares/professional-portfolio.<br>
 
 #### Acknowledgment
 
