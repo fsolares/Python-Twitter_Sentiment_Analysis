@@ -4,7 +4,7 @@ Acknowledgment
 
 Thank you Jaques D'Erasmo and Eduardo Passos, old friends and also Data Science students (12/19/2019) for your immeasurable contribution on this project, all your feedback, code sujection and support during my path gave me the strength to overcome this challenge. Congratualation for us, that was an ammazing and real team work.
 
-SOFTWARES & PACKAGES VERSIONS
+### SOFTWARES & PACKAGES VERSIONS
 
 INSTALLED VERSIONS
 
@@ -77,15 +77,15 @@ It is recommended that you install the most recent version of Anaconda distribut
 
 Additionally, few other packaged will need to be installed separately in case you do not have those installed. Bellow you can find each package and the installation command that can be executed from jupyter notebook cell except for the worldcloud package that need to be executed from the Anaconda Terminal (Windows) or the Terminal (Linux or MAC)
 
-tweepy - !pip install tweepy
-textblob - !pip install textblob
-worldcloud - conda install -c https://conda.anaconda.org/conda-forge wordcloud
+tweepy - !pip install tweepy<br>
+textblob - !pip install textblob<br>
+worldcloud - conda install -c https://conda.anaconda.org/conda-forge wordcloud<br>
 
 #!pip install tweepy
 
 #!pip install textblob
 
-#General Libraries
+### General Libraries
 
 import pickle
 import os
@@ -108,7 +108,7 @@ package with the command bellow (type exactly as it is bellow on your Anaconda P
 conda install -c conda-forge wordcloud
 
 
-# Visualization Libraries
+### Visualization Libraries
 
 from operator import itemgetter
 from wordcloud import WordCloud
@@ -116,7 +116,7 @@ import matplotlib.pyplot as plt
 %matplotlib inline
 
 
-# Preprocess Libraries
+#### Preprocess Libraries
 
 import re #module used to work with regular expressions
 from nltk.tokenize import word_tokenize
