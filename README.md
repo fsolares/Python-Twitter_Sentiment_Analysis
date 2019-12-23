@@ -251,21 +251,21 @@ After download the file it is recommend that you explore it using Pandas for a b
 ```
 # Step 5 - Preprocessing tweets from test and training data
 
-The preprocess step will use few python tools to work with strings as detailed bellow:
+The preprocess step will use few python tools to work with strings as detailed bellow:<br>
 
-USING .LOWER() STRING FUNCTION
+USING .LOWER() STRING FUNCTION<br>
 
-    1 - Convert to lower case
+1 - Convert to lower case<br>
 
-USING REGULAR EXPRESSIONS
-    2 - Replace links with the string 'url'
-    3 - Replace @ ... with 'at_user'
-    4 - Replace #word with the word itself
-    5 - Remove emoticons using ASCII encode and decode
+USING REGULAR EXPRESSIONS<br>
+2 - Replace links with the string 'url'<br>
+3 - Replace @ ... with 'at_user'<br>
+4 - Replace #word with the word itself<br>
+5 - Remove emoticons using ASCII encode and decode<br>
 
-USING NLTK
-    7 - Tokenize the tweet into words (a list of words)
-    8 - Remove stopwords (including url and user, RT and '...')
+USING NLTK<br>
+7 - Tokenize the tweet into words (a list of words)<br>
+8 - Remove stopwords (including url and user, RT and '...')<br>
 
 #### Creating a class to preprocess the test and training tweets
 ```python
