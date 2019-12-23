@@ -427,7 +427,7 @@ USING NLTK<br>
 ```python
     ![TrendingTwitter.png](attachment:TrendingTwitter.png)
  ```
- <img src="../TrendingTwitter.png"/>
+
 
 # Step 6 - Using NLTK to extract features and train the Classifier Model
 
