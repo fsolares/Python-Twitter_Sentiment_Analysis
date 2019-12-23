@@ -82,7 +82,7 @@ Additionally, few other packaged will need to be installed separately in case yo
 tweepy - !pip install tweepy<br>
 textblob - !pip install textblob<br>
 worldcloud - conda install -c https://conda.anaconda.org/conda-forge wordcloud<br>
-
+```python
     #!pip install tweepy
 
     #!pip install textblob
@@ -104,7 +104,7 @@ worldcloud - conda install -c https://conda.anaconda.org/conda-forge wordcloud<b
                                   #sentiment analysis that will be aslo presented
             
             
-
+```
 if you don't have the wordcloud library instaled, one option, if using Anaconda, you can install this 
 package with the command bellow (type exactly as it is bellow on your Anaconda Prompt):
 conda install -c conda-forge wordcloud
