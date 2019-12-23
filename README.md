@@ -4,7 +4,7 @@ Acknowledgment
 
 Thank you Jaques D'Erasmo and Eduardo Passos, old friends and also Data Science students (12/19/2019) for your immeasurable contribution on this project, all your feedback, code sujection and support during my path gave me the strength to overcome this challenge. Congratualation for us, that was an ammazing and real team work.
 
-### SOFTWARES & PACKAGES VERSIONS
+#### SOFTWARES & PACKAGES VERSIONS
 
 INSTALLED VERSIONS
 
@@ -85,7 +85,7 @@ worldcloud - conda install -c https://conda.anaconda.org/conda-forge wordcloud<b
 
 #!pip install textblob
 
-### General Libraries
+#### General Libraries
 
 import pickle
 import os
@@ -108,7 +108,7 @@ package with the command bellow (type exactly as it is bellow on your Anaconda P
 conda install -c conda-forge wordcloud
 
 
-### Visualization Libraries
+#### Visualization Libraries
 
 from operator import itemgetter
 from wordcloud import WordCloud
@@ -129,10 +129,11 @@ nltk.download("punkt")
 nltk.download("stopwords")
 
 
-## Step 2 - Saving my credentials and creating the OAuth object to access tweets on Twitter
+# Step 2 - Saving my credentials and creating the OAuth object to access tweets on Twitter
 
-# This strucre will save your credentials at the first time you exetute it, after that, erase your
-# credentials to avoind anyone else to use that
+#This strucre will save your credentials at the first time you exetute it, after that, erase your
+#credentials to avoind anyone else to use that
+
 if not os.path.exists('secret_twitter_credentials.pkl'):
     Twitter={}
     Twitter['Consumer Key'] = '-== Your Consumer Key ==-'
@@ -144,18 +145,18 @@ if not os.path.exists('secret_twitter_credentials.pkl'):
 else:
     Twitter=pickle.load(open('secret_twitter_credentials.pkl','rb'))
 
-# Authenticating and creating an API object
+#### Authenticating and creating an API object
 
 auth = tweepy.OAuthHandler(Twitter['Consumer Key'], Twitter['Consumer Secret'])
 auth.set_access_token(Twitter['Access Token'], Twitter['Access Token Secret'])
 api = tweepy.API(auth, wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
 
-## Step 3 - Getting tweets as test data
+# Step 3 - Getting tweets as test data
 
-# Function that will access the Tweet and get tweets based on a search term, number of tweets, inicial 
-# date and final date. This function will return a list of dictionaries where the key is the tweet text 
-# and the values is a label, in this casa we are considering 'None' in the labor. This format is necessary
-# for futures aplication
+#Function that will access the Tweet and get tweets based on a search term, number of tweets, inicial 
+#date and final date. This function will return a list of dictionaries where the key is the tweet text 
+#and the values is a label, in this casa we are considering 'None' in the labor. This format is necessary
+#for futures aplication
 
 def get_tweets(word='google',number=100, since='2019-11-01', until='2019-11-28'):
 
@@ -195,24 +196,24 @@ def get_tweets(word='google',number=100, since='2019-11-01', until='2019-11-28')
 
     return [i for i in new_data_dic]
 
-# creating a tweets objecting and printing the first 4 tweets
+#### Creating a tweets objecting and printing the first 4 tweets
 tweets = get_tweets()
 tweets[:3]
 
 
-# IMPORTANT!!!
+### IMPORTANT!!!
 
-# The Twitter API have limitations on the total of tweets and how many requests can be made.
-# A recomendation is do not request more than 3000 tweets in an interval of 15 min to avoid long waiting
-# time.
+#### The Twitter API have limitations on the total of tweets and how many requests can be made.
+#### A recomendation is do not request more than 3000 tweets in an interval of 15 min to avoid long waiting
+#### time.
 
-# Checking the final lengh of the request we can see the total is not the 1000 tweets requested. The 
-# reason for that is that the tweet api return duplicates and the above function do the job of removing
-# those.
+#### Checking the final lengh of the request we can see the total is not the 1000 tweets requested. The 
+#### reason for that is that the tweet api return duplicates and the above function do the job of removing
+#### those.
 
 len(tweets)
 
-## Step 4 - Getting training data
+# Step 4 - Getting training data
 
 We'll use the Niek Sander's tweets corpus woth ~5000 classified tweets labelled as positive, negative, neutral or irrelevant. Those tweets are related with tech companies like, Apple, Google, Twitter, Youtube, Microsoft and others. Said that, the model that will be created is recommended to a search term related with tech companies. The performance lower if the sentiment analysis is related with another kind of topic.
 
@@ -225,18 +226,18 @@ We'll use the Niek Sander's tweets corpus woth ~5000 classified tweets labelled 
 
 After download the file it is recommend that you explore it using Pandas for a better comprehension 
 
-# Function to read the nick_sanders_corpus csv file and return a list containing the text and the label
-# for each tweet
+#Function to read the nick_sanders_corpus csv file and return a list containing the text and the label
+#for each tweet
 
-# reading the nick_sanders_corpus
+#### reading the nick_sanders_corpus
 df = pd.read_csv('full_corpus.csv')
 
-#function
+#### function
 def trainingData():
     trainingData = [{'text':row[4], 'label':row[1]} for index,row in df.iterrows()]
     return trainingData
 
-# The function return a list of dict containing the key (tweets text) and the values (the labels)
+#The function return a list of dict containing the key (tweets text) and the values (the labels)
 
 
 df.head()
@@ -244,7 +245,7 @@ df.head()
 training_Data = trainingData()
 training_Data[:3]
 
-## Step 5 - Preprocessing tweets from test and training data
+# Step 5 - Preprocessing tweets from test and training data
 
 The preprocess step will use few python tools to work with strings as detailed bellow:
 
@@ -262,7 +263,7 @@ The preprocess step will use few python tools to work with strings as detailed b
             7 - Tokenize the tweet into words (a list of words)
             8 - Remove stopwords (including url and user, RT and '...')
 
-# Creating a class to preprocess the test and training tweets
+#### Creating a class to preprocess the test and training tweets
 
 class Preprocess:
     def __init__(self):
@@ -315,28 +316,32 @@ class Preprocess:
         #7 - Removing stopwords 
         return [word for word in tweet if word not in self._stopwords]        
 
-# Instantiating a Preprocess Class called 'tprocessor'
+#Instantiating a Preprocess Class called 'tprocessor'
+
 tprocessor = Preprocess()
 
-# Creating an object that will contain the result of the TRAINING DATA after been preprocessed by the
-# 'tprocessor' class
+#Creating an object that will contain the result of the TRAINING DATA after been preprocessed by the
+#'tprocessor' class
+
 cleanedtrainingData = tprocessor.processTweets(training_Data)
 
-# Creating an object that will contain the result of the TEST DATA after been preprocessed by the
-# 'tprocessor' class
+#Creating an object that will contain the result of the TEST DATA after been preprocessed by the
+#'tprocessor' class
+
 cleanedtestData = tprocessor.processTweets(tweets)
 
 print(cleanedtrainingData[:10])
 
 print(cleanedtestData[:10])
 
-### Step 5.1 - Word Frequence Visualizations
+## Step 5.1 - Word Frequence Visualizations
 
 * Word Frequence using a bar plot
 * Word Frequence using a Word Cloud
 
-# the result of the 'processTweets_words' is a list fo lists, so it will be necessary unify all words in
-# only one list
+#the result of the 'processTweets_words' is a list fo lists, so it will be necessary unify all words in
+#only one list
+
 words = tprocessor.processTweets_words(tweets)
 
 unif_words =[]
@@ -346,7 +351,7 @@ for i in words:
         
 unif_words[:5]
 
-# word frequence using 'Counter' class from the 'collection' package
+#### word frequence using 'Counter' class from the 'collection' package
 
 from collections import Counter
 
@@ -356,7 +361,7 @@ most_common_words = word_counter.most_common()[:15]
 
 print(most_common_words)
 
-# Word distribution present a large vocabulary
+#Word distribution present a large vocabulary
 sorted_word_counts = sorted(list(word_counter.values()), reverse=True)
 
 plt.loglog(sorted_word_counts)
@@ -366,7 +371,7 @@ plt.title('Word Frequence - Log x Log')
 plt.grid()
 plt.show()
 
-# Word distribution that allowed detect the count of words in a specific range
+#Word distribution that allowed detect the count of words in a specific range
 
 plt.hist(sorted_word_counts, bins=50, log=True);
 plt.ylabel("Freq")
@@ -375,17 +380,17 @@ plt.title('Word Frequence - semilog')
 plt.grid()
 plt.show()
 
-# Converting the dictionary to a pandas DataFrame
+#Converting the dictionary to a pandas DataFrame
 df = pd.DataFrame(most_common_words, columns=['word','freq'])
 
-# sorting the words based on their frequence
+#sorting the words based on their frequence
 df = df.sort_values(by=['freq'], ascending=False)
 
-# getting the top 20 more frequent words
+#getting the top 20 more frequent words
 top_20 = df.head(20)
 top_20
 
-# Bar ploting from the top 20 more frequent words
+#Bar ploting from the top 20 more frequent words
 
 axes = top_20.plot.bar(x='word',y='freq',legend=False)
 plt.gcf().tight_layout()
@@ -398,7 +403,7 @@ dic = {}
 for item in unif_words:
     dic[item] = dic.get(item, 0) + 1
 
-# Bulding a World Cloud
+#Bulding a World Cloud
 
 
 
@@ -412,14 +417,13 @@ wordcloud = wordcloud.fit_words(dic)
 wordcloud = wordcloud.to_file('TrendingTwitter.png')
 
 
-#IMPORTANT!!!
+### IMPORTANT!!!
 
-#The result will create a png file in the folder where the jupyter notebook are running. In order to see the
-#result you will need to go check this file
+#### The result will create a png file in the folder where the jupyter notebook are running. In order to see the result you will need to go check this file
 
 ![TrendingTwitter.png](attachment:TrendingTwitter.png)
 
-## Step 6 - Using NLTK to extract features and train the Classifier Model
+# Step 6 - Using NLTK to extract features and train the Classifier Model
 
 **Extract features from both the test data (the 100 tweets to be classifed) and the training data, downloaded from the corpus**
     
@@ -444,14 +448,14 @@ def wordVocab(cleanedtrainingData):
         training_features.extend(words)
     return list(set(training_features))
 
-#Creating the word_features_vocab object
+#### Creating the word_features_vocab object
 
 word_features_vocab = wordVocab(cleanedtrainingData)
 
-# The NLTK library have a function called apply_features that takes a user-defined function to extract
-# featrues from training data. In this case the function will be called extract_features_func that will
-# take each tweet in the in the training data and repersent it with the presence or absence of a word in
-# the vocabulary, as previously explaned in the item 2.2 above.
+#The NLTK library have a function called apply_features that takes a user-defined function to extract
+#featrues from training data. In this case the function will be called extract_features_func that will
+#take each tweet in the in the training data and repersent it with the presence or absence of a word in
+#the vocabulary, as previously explaned in the item 2.2 above.
 
 def extract_features_func(tweet):
     tweet_words = set(tweet)
@@ -463,22 +467,22 @@ def extract_features_func(tweet):
         
     return features
 
-# Creating the traning_features object
+#### Creating the traning_features object
 
-# apply_features will take the extract_features_func defined above, and apply it to each element of
-# cleanedtrainingData. it automatically recognize that each of these elements are tuples where the
-# first element is the text and the second is the label. The apply_features apply the extract_features_func
-# only on the text element.
+#apply_features will take the extract_features_func defined above, and apply it to each element of
+#cleanedtrainingData. it automatically recognize that each of these elements are tuples where the
+#first element is the text and the second is the label. The apply_features apply the extract_features_func
+#only on the text element.
 
 trainingFeature = nltk.classify.apply_features(extract_features_func,cleanedtrainingData)
 
 
 
-# Creating the classifier objected, trained using the training data features 
+#### Creating the classifier objected, trained using the training data features 
 
 NBclassifier = nltk.NaiveBayesClassifier.train(trainingFeature)
 
-## Step 7 - Run the Classifier on the 2000 downloaded tweets
+# Step 7 - Run the Classifier on the 2000 downloaded tweets
 
 sentiment_classifier = [NBclassifier.classify(extract_features_func(tweet[0])) for tweet in cleanedtestData]
 
@@ -518,7 +522,7 @@ TextBlob is an object-oriented NLP text-processing library that is built on the 
 
 *During my exploration to perform this work I had the chance to learn about this library and I strongly recomend that you dedicate a time to read and understand better the main tasks that TextBlob can perform.*
 
-# Libraries
+## Libraries
 
 import pickle
 import os
@@ -527,8 +531,8 @@ from textblob import TextBlob
 
 #Saving/loading the credations to access the tweet API
 
-# This structure will save your credentials at the first time you exetute it, after that, erase your
-# credentials to avoind anyone else to use that
+#This structure will save your credentials at the first time you exetute it, after that, erase your
+#credentials to avoind anyone else to use that
 if not os.path.exists('secret_twitter_credentials.pkl'):
     Twitter={}
     Twitter['Consumer Key'] = 'your_cosumer_key_here'
@@ -541,16 +545,16 @@ else:
     Twitter=pickle.load(open('secret_twitter_credentials.pkl','rb'))
     
     
-# Authenticating and creating an API object
+#### Authenticating and creating an API object
 
 auth = tweepy.OAuthHandler(Twitter['Consumer Key'], Twitter['Consumer Secret'])
 auth.set_access_token(Twitter['Access Token'], Twitter['Access Token Secret'])
 api = tweepy.API(auth, wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
 
-# Function that will access the Tweet and get tweets based on a search term, number of tweets, inicial 
-# date and final date. This function will return a list of dictionaries where the key is the tweet text
-# and the values is a label, in this casa we are considering 'None' in the labor. This format is necessary
-# for futures aplication
+#Function that will access the Tweet and get tweets based on a search term, number of tweets, inicial 
+#date and final date. This function will return a list of dictionaries where the key is the tweet text
+#and the values is a label, in this casa we are considering 'None' in the labor. This format is necessary
+#for futures aplication
 
 
 def get_tweets2(word='google',number=5, since='2019-11-01', until='2019-11-28'):
@@ -614,12 +618,12 @@ Considering that we can not re-train the algorithm in the TextBlob, it is import
 from textblob.sentiments import NaiveBayesAnalyzer
 
 
-# Recommendation!!!
+### Recommendation!!!
 
-# The sentiment analysis using TextBlob NaiveBayesAnalyzer presented a low performance in terms of speed,
-# basically it takes long time to process the analysis. Request a max of 20 tweets in order to be able to
-# quickly have a return and evaluate the result. If you have more time and a powerful machine you maybe want
-# to try a larger tweet request.
+#### The sentiment analysis using TextBlob NaiveBayesAnalyzer presented a low performance in terms of speed,
+#### basically it takes long time to process the analysis. Request a max of 20 tweets in order to be able to
+#### quickly have a return and evaluate the result. If you have more time and a powerful machine you maybe want
+#### to try a larger tweet request.
 
 def get_tweets3(word='google',number=5, since='2019-11-01', until='2019-11-28'):
 
