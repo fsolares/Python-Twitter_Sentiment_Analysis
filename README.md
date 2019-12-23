@@ -1,6 +1,8 @@
 # Twitter_Sentiment_Analysis
-This is a Sentiment Analysis project developed by Felipe Solares da Silva and is part of his professional portfolio.
-Acknowledgment
+This is a Twitter Sentiment Analysis developed by **Felipe Solares da Silva**, using Python, NLTK, TextBlob and Tweepy. 
+This project is part of his **professional portfolio** at https://github.com/fsolares/professional-portfolio.
+
+#### Acknowledgment
 
 Thank you Jaques D'Erasmo and Eduardo Passos, old friends and also Data Science students (12/19/2019) for your immeasurable contribution on this project, all your feedback, code sujection and support during my path gave me the strength to overcome this challenge. Congratualation for us, that was an ammazing and real team work.
 
