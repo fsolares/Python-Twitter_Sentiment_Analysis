@@ -8,57 +8,58 @@ SOFTWARES & PACKAGES VERSIONS
 
 INSTALLED VERSIONS
 
-commit : None
-python : 3.6.9.final.0
-python-bits : 64 OS : Windows
-OS-release : 10
-machine : AMD64
-processor : Intel64 Family 6 Model 58 Stepping 9, GenuineIntel
-byteorder : little
-LC_ALL : None
-LANG : None
-LOCALE : None.None
+commit           : None<br>
+python           : 3.6.9.final.0<br>
+python-bits      : 64
+OS               : Windows<br>
+OS-release       : 10<br>
+machine          : AMD64<br>
+processor        : Intel64 Family 6 Model 58 Stepping 9, GenuineIntel<br>
+byteorder        : little<br>
+LC_ALL           : None<br>
+LANG             : None<br>
+LOCALE           : None.None<br>
 
-pandas : 0.25.1
-numpy : 1.17.2
-pytz : 2019.2
-dateutil : 2.8.0
-pip : 19.3.1
-setuptools : 41.6.0
-Cython : 0.29.13
-pytest : 5.0.1
-hypothesis : None
-sphinx : 2.2.0
-blosc : None
-feather : None
-xlsxwriter : 1.2.1
-lxml.etree : 4.4.1
-html5lib : 1.0.1
-pymysql : None
-psycopg2 : None
-jinja2 : 2.10.1
-IPython : 7.8.0
-pandas_datareader: None
-bs4 : 4.8.0
-bottleneck : 1.2.1
-fastparquet : None
-gcsfs : None
-lxml.etree : 4.4.1
-matplotlib : 3.1.1
-numexpr : 2.6.4
-odfpy : None
-openpyxl : 2.6.3
-pandas_gbq : None
-pyarrow : None
-pytables : None
-s3fs : None
-scipy : 1.3.1
-sqlalchemy : 1.3.8
-tables : 3.4.2
-xarray : None
-xlrd : 1.2.0
-xlwt : 1.3.0
-xlsxwriter : 1.2.1
+pandas           : 0.25.1<br>
+numpy            : 1.17.2<br>
+pytz             : 2019.2<br>
+dateutil         : 2.8.0<br>
+pip              : 19.3.1<br>
+setuptools       : 41.6.0<br>
+Cython           : 0.29.13<br>
+pytest           : 5.0.1<br>
+hypothesis       : None<br>
+sphinx           : 2.2.0<br>
+blosc            : None<br>
+feather          : None<br>
+xlsxwriter       : 1.2.1<br>
+lxml.etree       : 4.4.1<br>
+html5lib         : 1.0.1<br>
+pymysql          : None<br>
+psycopg2         : None<br>
+jinja2           : 2.10.1<br>
+IPython          : 7.8.0<br>
+pandas_datareader: None<br>
+bs4              : 4.8.0<br>
+bottleneck       : 1.2.1<br>
+fastparquet      : None<br>
+gcsfs            : None<br>
+lxml.etree       : 4.4.1<br>
+matplotlib       : 3.1.1<br>
+numexpr          : 2.6.4<br>
+odfpy            : None<br>
+openpyxl         : 2.6.3<br>
+pandas_gbq       : None<br>
+pyarrow          : None<br>
+pytables         : None<br>
+s3fs             : None<br>
+scipy            : 1.3.1<br>
+sqlalchemy       : 1.3.8<br>
+tables           : 3.4.2<br>
+xarray           : None<br>
+xlrd             : 1.2.0<br>
+xlwt             : 1.3.0<br>
+xlsxwriter       : 1.2.1<br>
 
 Sentiment Analysis using Twitter API and NLTK Naive Bayes Classifier
 Project purpose
@@ -68,7 +69,7 @@ Perform a sentiment analysis using NLTK Naive Bayes Classifer to identify the se
 
 
 
-Step 1 - Importing libraries
+# Step 1 - Importing libraries
 
 README!
 
@@ -102,9 +103,9 @@ from textblob import TextBlob #it is necessary install the textblob library if y
             
             
 
-# if you don't have the wordcloud library instaled, one option, if using Anaconda, you can install this 
-# package with the command bellow (type exactly as it is bellow on your Anaconda Prompt):
-# conda install -c conda-forge wordcloud
+if you don't have the wordcloud library instaled, one option, if using Anaconda, you can install this 
+package with the command bellow (type exactly as it is bellow on your Anaconda Prompt):
+conda install -c conda-forge wordcloud
 
 
 # Visualization Libraries
