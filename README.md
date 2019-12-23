@@ -111,15 +111,15 @@ conda install -c conda-forge wordcloud
 
 
 #### Visualization Libraries
-
+```python
     from operator import itemgetter
     from wordcloud import WordCloud
     import matplotlib.pyplot as plt
     %matplotlib inline
-
+```
 
 #### Preprocess Libraries
-
+```python
     import re #module used to work with regular expressions
     from nltk.tokenize import word_tokenize
     from string import punctuation
@@ -129,10 +129,10 @@ conda install -c conda-forge wordcloud
     nltk.download('movie_reviews')
     nltk.download("punkt")
     nltk.download("stopwords")
-
+```
 
 # Step 2 - Saving my credentials and creating the OAuth object to access tweets on Twitter
-
+```python
     #This strucre will save your credentials at the first time you exetute it, after that, erase your
     #credentials to avoind anyone else to use that
 
@@ -146,15 +146,15 @@ conda install -c conda-forge wordcloud
             pickle.dump(Twitter, f)
     else:
         Twitter=pickle.load(open('secret_twitter_credentials.pkl','rb'))
-
+```
 #### Authenticating and creating an API object
-
+```python
     auth = tweepy.OAuthHandler(Twitter['Consumer Key'], Twitter['Consumer Secret'])
     auth.set_access_token(Twitter['Access Token'], Twitter['Access Token Secret'])
     api = tweepy.API(auth, wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
-
+```
 # Step 3 - Getting tweets as test data
-
+```python
 #Function that will access the Tweet and get tweets based on a search term, number of tweets, inicial 
 #date and final date. This function will return a list of dictionaries where the key is the tweet text 
 #and the values is a label, in this casa we are considering 'None' in the labor. This format is necessary
@@ -197,11 +197,12 @@ conda install -c conda-forge wordcloud
 
 
         return [i for i in new_data_dic]
-
+```
 #### Creating a tweets objecting and printing the first 4 tweets
+```python
     tweets = get_tweets()
     tweets[:3]
-
+```
 
 ### IMPORTANT!!!
 
@@ -212,9 +213,9 @@ conda install -c conda-forge wordcloud
 #### Checking the final lengh of the request we can see the total is not the 1000 tweets requested. The 
 #### reason for that is that the tweet api return duplicates and the above function do the job of removing
 #### those.
-
+```python
     len(tweets)
-
+```
 # Step 4 - Getting training data
 
 We'll use the Niek Sander's tweets corpus woth ~5000 classified tweets labelled as positive, negative, neutral or irrelevant. Those tweets are related with tech companies like, Apple, Google, Twitter, Youtube, Microsoft and others. Said that, the model that will be created is recommended to a search term related with tech companies. The performance lower if the sentiment analysis is related with another kind of topic.
@@ -228,13 +229,14 @@ We'll use the Niek Sander's tweets corpus woth ~5000 classified tweets labelled 
 
 After download the file it is recommend that you explore it using Pandas for a better comprehension 
 
-#Function to read the nick_sanders_corpus csv file and return a list containing the text and the label
-#for each tweet
+**Function to read the nick_sanders_corpus csv file and return a list containing the text and the labelfor each tweet.**
 
 #### reading the nick_sanders_corpus
+```python
     df = pd.read_csv('full_corpus.csv')
-
-#### function
+```
+#### Function
+```python
     def trainingData():
         trainingData = [{'text':row[4], 'label':row[1]} for index,row in df.iterrows()]
         return trainingData
@@ -246,27 +248,27 @@ After download the file it is recommend that you explore it using Pandas for a b
 
     training_Data = trainingData()
     training_Data[:3]
-
+```
 # Step 5 - Preprocessing tweets from test and training data
 
 The preprocess step will use few python tools to work with strings as detailed bellow:
 
-        USING .LOWER() STRING FUNCTION
-        
-            1 - Convert to lower case
-        
-        USING REGULAR EXPRESSIONS
-            2 - Replace links with the string 'url'
-            3 - Replace @ ... with 'at_user'
-            4 - Replace #word with the word itself
-            5 - Remove emoticons using ASCII encode and decode
-        
-        USING NLTK
-            7 - Tokenize the tweet into words (a list of words)
-            8 - Remove stopwords (including url and user, RT and '...')
+USING .LOWER() STRING FUNCTION
+
+    1 - Convert to lower case
+
+USING REGULAR EXPRESSIONS
+    2 - Replace links with the string 'url'
+    3 - Replace @ ... with 'at_user'
+    4 - Replace #word with the word itself
+    5 - Remove emoticons using ASCII encode and decode
+
+USING NLTK
+    7 - Tokenize the tweet into words (a list of words)
+    8 - Remove stopwords (including url and user, RT and '...')
 
 #### Creating a class to preprocess the test and training tweets
-
+```python
     class Preprocess:
         def __init__(self):
 
@@ -335,26 +337,26 @@ The preprocess step will use few python tools to work with strings as detailed b
     print(cleanedtrainingData[:10])
 
     print(cleanedtestData[:10])
-
+```
 ## Step 5.1 - Word Frequence Visualizations
 
 * Word Frequence using a bar plot
 * Word Frequence using a Word Cloud
+```python
+        #the result of the 'processTweets_words' is a list fo lists, so it will be necessary unify all words in
+        #only one list
 
-#the result of the 'processTweets_words' is a list fo lists, so it will be necessary unify all words in
-#only one list
+        words = tprocessor.processTweets_words(tweets)
 
-    words = tprocessor.processTweets_words(tweets)
+        unif_words =[]
+        for i in words:
+            for j in i:
+                unif_words.append(j)
 
-    unif_words =[]
-    for i in words:
-        for j in i:
-            unif_words.append(j)
-
-    unif_words[:5]
-
+        unif_words[:5]
+```
 #### word frequence using 'Counter' class from the 'collection' package
-
+```python
     from collections import Counter
 
     word_counter = Counter(unif_words)
@@ -418,30 +420,31 @@ The preprocess step will use few python tools to work with strings as detailed b
 
     wordcloud = wordcloud.to_file('TrendingTwitter.png')
 
-
+```
 ### IMPORTANT!!!
 
 #### The result will create a png file in the folder where the jupyter notebook are running. In order to see the result you will need to go check this file
-
+```python
     ![TrendingTwitter.png](attachment:TrendingTwitter.png)
+ ```
 
 # Step 6 - Using NLTK to extract features and train the Classifier Model
 
 **Extract features from both the test data (the 100 tweets to be classifed) and the training data, downloaded from the corpus**
     
-    The NLTK model that will be used is known as NAVIE BAYES CLASSIFICATION
+The NLTK model that will be used is known as NAVIE BAYES CLASSIFICATION
 
-           1.1 - Build a vocabulary (list of all unique words in all the tweets in the training data);
+1.1 - Build a vocabulary (list of all unique words in all the tweets in the training data);
 
-           2.2 - Represent each tweet with the presence or absence of theses words;
-                 Ex.: Given a *vocabulary: {'the','worst','thing,'in','the','world'} and a *tweet: {'the','worst','thing'}        
+2.2 - Represent each tweet with the presence or absence of theses words;
+     Ex.: Given a *vocabulary: {'the','worst','thing,'in','the','world'} and a *tweet: {'the','worst','thing'}        
 
-                      This tweet will be represented as a "Feature Vector" (1,1,1,0,0,0) -> indicatinting that the 
-                      first three words from the vocabulary are in the tweet, and there is other 3 words in the 
-                      vocabulary that is not part of the mentioned tweet.
+This tweet will be represented as a "Feature Vector" (1,1,1,0,0,0) -> indicatinting that the 
+first three words from the vocabulary are in the tweet, and there is other 3 words in the 
+vocabulary that is not part of the mentioned tweet.
 
-           2.3 - Use NLTK's built in Navie Bayes Classifier to train a Classifier                                 
-
+2.3 - Use NLTK's built in Navie Bayes Classifier to train a Classifier                                 
+```python
     #Defining the function to create a word Vocabulary or bag_of_words
 
     def wordVocab(cleanedtrainingData):
@@ -449,9 +452,9 @@ The preprocess step will use few python tools to work with strings as detailed b
         for (words, sentiment) in cleanedtrainingData:
             training_features.extend(words)
         return list(set(training_features))
-
+```
 #### Creating the word_features_vocab object
-
+```python
     word_features_vocab = wordVocab(cleanedtrainingData)
 
     #The NLTK library have a function called apply_features that takes a user-defined function to extract
@@ -468,9 +471,9 @@ The preprocess step will use few python tools to work with strings as detailed b
             # as True or False. The statement that create the True or False return is the '(word in tweet_words)'
 
         return features
-
+```
 #### Creating the traning_features object
-
+```python
     #apply_features will take the extract_features_func defined above, and apply it to each element of
     #cleanedtrainingData. it automatically recognize that each of these elements are tuples where the
     #first element is the text and the second is the label. The apply_features apply the extract_features_func
@@ -478,14 +481,14 @@ The preprocess step will use few python tools to work with strings as detailed b
 
     trainingFeature = nltk.classify.apply_features(extract_features_func,cleanedtrainingData)
 
-
+```
 
 #### Creating the classifier objected, trained using the training data features 
-
+```python
     NBclassifier = nltk.NaiveBayesClassifier.train(trainingFeature)
-
+```
 # Step 7 - Run the Classifier on the 2000 downloaded tweets
-
+```python
     sentiment_classifier = [NBclassifier.classify(extract_features_func(tweet[0])) for tweet in cleanedtestData]
 
     print('-='*40)
@@ -515,7 +518,7 @@ The preprocess step will use few python tools to work with strings as detailed b
 
     tweets[0:10]
 
-
+```
 # A simplified approach using TextBlob library
 
 The object of this section is to present a simple and very interest tool that I could discover on my journey to complete this project. I will also perform the same kind of sentiment analysis in a much more simplefied version using a powerful library called TextBlob.
@@ -525,7 +528,7 @@ TextBlob is an object-oriented NLP text-processing library that is built on the 
 *During my exploration to perform this work I had the chance to learn about this library and I strongly recomend that you dedicate a time to read and understand better the main tasks that TextBlob can perform.*
 
 ## Libraries
-
+```python
     import pickle
     import os
     import tweepy
@@ -546,9 +549,9 @@ TextBlob is an object-oriented NLP text-processing library that is built on the 
     else:
         Twitter=pickle.load(open('secret_twitter_credentials.pkl','rb'))
     
-    
+```    
 #### Authenticating and creating an API object
-
+```python
     auth = tweepy.OAuthHandler(Twitter['Consumer Key'], Twitter['Consumer Secret'])
     auth.set_access_token(Twitter['Access Token'], Twitter['Access Token Secret'])
     api = tweepy.API(auth, wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
@@ -610,15 +613,15 @@ TextBlob is an object-oriented NLP text-processing library that is built on the 
         return positive, negative, neutral
 
     tweets2 = get_tweets2()
-
+```
 ### Adjusting the TextBlob to perform the sentiment analysis using a Navie Bayes Analyser
 
 By default, a TextBlob and the Sentences and Words you get from it determine sentiment using a PatternAnalyzer, which uses the same sentiment analysis techniques as in the Pattern library. The TextBlob library also comes with a NaiveBayesAnalyzer9 (module text-blob.sentiments), **which was trained on a database of movie reviews**.
 
 Considering that we can not re-train the algorithm in the TextBlob, it is important to understand that the performance compromised since the train data was not related with the topic of the search term that will be considered on this analysis, a term realated to a tech company for the sentiment analysis
-
+```python
     from textblob.sentiments import NaiveBayesAnalyzer
-
+```
 
 ### Recommendation!!!
 
@@ -626,7 +629,7 @@ Considering that we can not re-train the algorithm in the TextBlob, it is import
 #### basically it takes long time to process the analysis. Request a max of 20 tweets in order to be able to
 #### quickly have a return and evaluate the result. If you have more time and a powerful machine you maybe want
 #### to try a larger tweet request.
-
+```python
     def get_tweets3(word='google',number=5, since='2019-11-01', until='2019-11-28'):
 
         search_term = str(input('Hi! What are you looking for today? - '))
@@ -671,3 +674,4 @@ Considering that we can not re-train the algorithm in the TextBlob, it is import
         return positive, negative
 
     tweets3 = get_tweets3()
+```
