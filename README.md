@@ -63,7 +63,8 @@ xlrd             : 1.2.0<br>
 xlwt             : 1.3.0<br>
 xlsxwriter       : 1.2.1<br>
 
-Sentiment Analysis using Twitter API and NLTK Naive Bayes Classifier
+###Sentiment Analysis using Twitter API and NLTK Naive Bayes Classifier
+
 Project purpose
 
 Perform a sentiment analysis using NLTK Naive Bayes Classifer to identify the sentiment from tweets users related with Netflix services (or any other high tech company as Apple, Microsoft, Google, for example).
