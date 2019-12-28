@@ -12,7 +12,7 @@ INSTALLED VERSIONS
 
 commit           : None<br>
 python           : 3.6.9.final.0<br>
-python-bits      : 64
+python-bits      : 64<br>
 OS               : Windows<br>
 OS-release       : 10<br>
 machine          : AMD64<br>
