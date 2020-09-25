@@ -1,4 +1,6 @@
 # Twitter Sentiment Analysis
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/fsolares/Python-Twitter_Sentiment_Analysis/master)
+
 Twitter Sentiment Analysis project using Python, NLTK, Tweepy, TextBlob, Twitter API interface and Nick Sander's tweets corpus to evaluate the sentiment of Netflix users about it's platform services.
 
 Contact: solares.fs@gmail.com
